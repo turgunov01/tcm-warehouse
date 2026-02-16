@@ -67,3 +67,19 @@ button:hover,
   color: #000 !important;
   background-color: #fff !important;
 }
+
+/* Admin pages: keep general copy left-aligned without touching table cell alignment rules. */
+.admin-page-content h1,
+.admin-page-content h2,
+.admin-page-content h3,
+.admin-page-content h4,
+.admin-page-content h5,
+.admin-page-content h6,
+.admin-page-content p,
+.admin-page-content label,
+.admin-page-content legend,
+.admin-page-content li,
+.admin-page-content dt,
+.admin-page-content dd {
+  text-align: left;
+}

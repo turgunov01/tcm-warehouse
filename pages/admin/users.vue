@@ -105,7 +105,7 @@ onMounted(load);
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-4 admin-page-content">
     <div>
       <h1 class="text-2xl font-semibold">Пользователи</h1>
       <p class="text-sm text-slate-500">Создайте пользователя вручную или загрузите список из XLSX.</p>

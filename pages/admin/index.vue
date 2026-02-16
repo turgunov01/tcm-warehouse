@@ -66,7 +66,7 @@ watch(filters, refresh, { deep: true })
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-4 admin-page-content">
     <div>
       <h1 class="text-2xl font-semibold">Панель администратора</h1>
       <p class="text-sm text-slate-500">Обзор склада, бронирований и активности.</p>

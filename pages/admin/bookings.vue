@@ -33,6 +33,8 @@ const tableColumns = [
   { key: 'car_plate_text', label: 'Номер' },
   { key: 'tenant', label: 'Арендатор' },
   { key: 'zone_id', label: 'Зона' },
+  { key: 'overtime_minutes', label: 'Опоздание (мин)' },
+  { key: 'penalty_amount', label: 'Штраф' },
   { key: 'actions', label: 'Действия' }
 ]
 
@@ -122,7 +124,7 @@ watch(filters, refresh, { deep: true })
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-4 admin-page-content">
     <div>
       <h1 class="text-2xl font-semibold">Бронирования</h1>
       <p class="text-sm text-slate-500">Одобрение и удаление заявок арендаторов.</p>
@@ -149,6 +151,12 @@ watch(filters, refresh, { deep: true })
         </template>
         <template #tenant-data="{ row }">
           {{ row.profiles?.full_name || row.tenant_id }}
+        </template>
+        <template #overtime_minutes-data="{ row }">
+          {{ Number(row.overtime_minutes || 0) }}
+        </template>
+        <template #penalty_amount-data="{ row }">
+          {{ Number(row.penalty_amount || 0).toFixed(2) }}
         </template>
         <template #actions-data="{ row }">
           <div class="flex gap-2">

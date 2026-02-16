@@ -25,7 +25,7 @@ watch([tableFilter, actionFilter], load)
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="space-y-4 admin-page-content">
     <div>
       <h1 class="text-2xl font-semibold">Журнал аудита</h1>
       <p class="text-sm text-slate-500">Отслеживание изменений в ключевых таблицах.</p>
