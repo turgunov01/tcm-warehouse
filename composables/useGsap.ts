@@ -23,6 +23,8 @@ const getEl = (target: HTMLElement | string) => {
 }
 
 export const useGsap = () => {
+  const { motionLevel, durationScale, staggerScale } = useMotionProfile()
+
   const getGsap = async () => {
     if (import.meta.server) {
       return null
@@ -38,10 +40,16 @@ export const useGsap = () => {
       return
     }
 
+    if (motionLevel.value === 'minimal') {
+      el.textContent = Number(to).toFixed(0)
+      return
+    }
+
+    const scaledDuration = Math.max(0.12, duration * durationScale.value)
     const state = { value: from }
     gsap.to(state, {
       value: to,
-      duration,
+      duration: scaledDuration,
       ease: 'power2.out',
       onUpdate: () => {
         el.textContent = Number(state.value).toFixed(0)
@@ -56,6 +64,15 @@ export const useGsap = () => {
       return
     }
 
+    if (motionLevel.value === 'minimal') {
+      el.style.opacity = '1'
+      el.style.transform = 'translate3d(0, 0, 0) scale(1)'
+      return
+    }
+
+    const scaledDuration = Math.max(0.12, (options.duration ?? 0.45) * durationScale.value)
+    const scaledDelay = (options.delay ?? 0) * durationScale.value
+
     gsap.fromTo(
       el,
       {
@@ -69,8 +86,8 @@ export const useGsap = () => {
         y: 0,
         x: 0,
         scale: 1,
-        duration: options.duration ?? 0.45,
-        delay: options.delay ?? 0,
+        duration: scaledDuration,
+        delay: scaledDelay,
         ease: options.ease ?? 'power2.out'
       }
     )
@@ -88,6 +105,18 @@ export const useGsap = () => {
       return
     }
 
+    if (motionLevel.value === 'minimal') {
+      items.forEach((item) => {
+        const htmlItem = item as HTMLElement
+        htmlItem.style.opacity = '1'
+        htmlItem.style.transform = 'translate3d(0, 0, 0)'
+      })
+      return
+    }
+
+    const scaledDuration = Math.max(0.1, (options.duration ?? 0.35) * durationScale.value)
+    const scaledStagger = Math.max(0.015, (options.stagger ?? 0.06) * staggerScale.value)
+
     gsap.fromTo(
       items,
       {
@@ -97,8 +126,8 @@ export const useGsap = () => {
       {
         opacity: 1,
         y: 0,
-        duration: options.duration ?? 0.35,
-        stagger: options.stagger ?? 0.06,
+        duration: scaledDuration,
+        stagger: scaledStagger,
         ease: options.ease ?? 'power2.out'
       }
     )

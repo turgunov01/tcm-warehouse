@@ -26,7 +26,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <UCard>
+  <UCard class="kinetic-panel kinetic-panel-delay-b">
     <template #header>
       <p class="font-semibold">Последняя активность</p>
     </template>
@@ -34,7 +34,7 @@ onMounted(async () => {
       <div
         v-for="item in props.items"
         :key="item.id"
-        class="activity-item rounded border border-[#eeeeee] p-3"
+        class="activity-item activity-row-kinetic rounded border border-[#eeeeee] p-3"
       >
         <div class="flex items-center justify-between gap-2">
           <p class="text-sm text-slate-900">{{ actionLabel(item.action) }}: {{ tableLabel(item.table_name) }}</p>

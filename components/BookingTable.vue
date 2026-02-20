@@ -15,8 +15,8 @@ const columns = [
 </script>
 
 <template>
-  <UCard>
-    <UTable :rows="props.rows" :columns="columns">
+  <UCard class="kinetic-panel kinetic-panel-delay-c">
+    <UTable class="table-kinetic" :rows="props.rows" :columns="columns">
       <template #status-data="{ row }">
         <UBadge :label="bookingStatusLabel(row.status)" color="gray" variant="subtle" />
       </template>

@@ -148,6 +148,8 @@ export interface Database {
           driver_passport_back: string
           car_plate_photo: string
           car_plate_text: string
+          car_fuel_type: 'gas' | 'petrol'
+          operation_type: 'inbound' | 'outbound' | 'inbound_outbound'
           requested_datetime: string
           slot_start: string
           slot_end: string
@@ -174,6 +176,8 @@ export interface Database {
           driver_passport_back: string
           car_plate_photo: string
           car_plate_text: string
+          car_fuel_type: 'gas' | 'petrol'
+          operation_type: 'inbound' | 'outbound' | 'inbound_outbound'
           requested_datetime: string
           is_express?: boolean
           status?: BookingStatus
@@ -188,6 +192,8 @@ export interface Database {
         },
         {
           zone_id?: string
+          car_fuel_type?: 'gas' | 'petrol'
+          operation_type?: 'inbound' | 'outbound' | 'inbound_outbound'
           status?: BookingStatus
           admin_note?: string | null
           arrived_at?: string | null

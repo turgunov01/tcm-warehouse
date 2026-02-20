@@ -1,5 +1,9 @@
-﻿<template>
+<template>
+  <ClientOnly>
+    <AppPulseCursor />
+  </ClientOnly>
+
   <NuxtLayout>
-    <NuxtPage />
+    <NuxtPage :transition="{ name: 'app-page', mode: 'out-in' }" />
   </NuxtLayout>
 </template>

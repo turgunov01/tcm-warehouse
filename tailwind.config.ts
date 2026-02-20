@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Montserrat', 'system-ui', 'Segoe UI', 'Arial', 'sans-serif']
+        sans: ['Cera Pro', 'Cera Round Pro', 'Montserrat', 'system-ui', 'Segoe UI', 'Arial', 'sans-serif']
       }
     }
   }

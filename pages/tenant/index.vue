@@ -7,6 +7,9 @@ const bookings = ref<any[]>([])
 const debt = ref(0)
 
 const lastBookings = computed(() => bookings.value.slice(0, 6))
+const totalOvertimeMinutes = computed(() =>
+  bookings.value.reduce((sum, booking) => sum + Number(booking.overtime_minutes || 0), 0)
+)
 const statusMap = computed(() => {
   const map: Record<string, number> = {
     pending: 0,
@@ -49,11 +52,12 @@ watch(
       <p class="text-sm text-slate-500">Сводка бронирований и текущая задолженность.</p>
     </div>
 
-    <div class="card-grid">
+    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
       <DashboardStatCard label="Общий долг" :value="debt" tone="danger" />
       <DashboardStatCard label="В ожидании" :value="statusMap.pending" tone="warning" />
       <DashboardStatCard label="Одобрено" :value="statusMap.approved" tone="success" />
       <DashboardStatCard label="Завершено" :value="statusMap.completed" />
+      <DashboardStatCard label="Опоздание (мин)" :value="totalOvertimeMinutes" tone="warning" />
     </div>
 
     <div class="grid gap-4 xl:grid-cols-[2fr_1fr]">

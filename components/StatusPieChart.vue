@@ -9,29 +9,43 @@ const props = defineProps<{
   labels: string[]
   values: number[]
 }>()
+const { motionLevel, durationScale } = useMotionProfile()
 
 const chartData = computed(() => ({
   labels: props.labels,
   datasets: [
     {
       data: props.values,
-      backgroundColor: ['#0f172a', '#334155', '#64748b', '#94a3b8', '#cbd5e1']
+      backgroundColor: ['#d7b56a', '#678fcb', '#36a897', '#b27be8', '#f08b55']
     }
   ]
 }))
 
-const chartOptions = {
+const chartOptions = computed(() => ({
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
     legend: {
-      position: 'bottom' as const
+      position: 'bottom' as const,
+      labels: {
+        color: '#c6d0e1'
+      }
+    },
+    tooltip: {
+      backgroundColor: '#111722',
+      borderColor: 'rgba(255,255,255,0.16)',
+      borderWidth: 1,
+      titleColor: '#f8fafc',
+      bodyColor: '#e2e8f0'
     }
   },
-  animation: {
-    duration: 650
-  }
-}
+  animation:
+    motionLevel.value === 'minimal'
+      ? false
+      : {
+          duration: Math.max(200, Math.round(650 * durationScale.value))
+        }
+}))
 
 const wrapper = ref<HTMLElement | null>(null)
 const { animateIn } = useGsap()
@@ -44,7 +58,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <UCard ref="wrapper">
+  <UCard ref="wrapper" class="kinetic-panel kinetic-panel-delay-a">
     <template #header>
       <p class="font-semibold">{{ title }}</p>
     </template>

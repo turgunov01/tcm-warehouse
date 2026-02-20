@@ -101,8 +101,8 @@ watch(filters, refresh, { deep: true })
           </UFormGroup>
 
           <UButtonGroup>
-            <UButton label="Таблица" :variant="viewMode === 'table' ? 'solid' : 'outline'" @click="viewMode = 'table'" />
-            <UButton label="Календарь" :variant="viewMode === 'calendar' ? 'solid' : 'outline'" @click="viewMode = 'calendar'" />
+            <UButton class="kinetic-btn" label="Таблица" :variant="viewMode === 'table' ? 'solid' : 'outline'" @click="viewMode = 'table'" />
+            <UButton class="kinetic-btn" label="Календарь" :variant="viewMode === 'calendar' ? 'solid' : 'outline'" @click="viewMode = 'calendar'" />
           </UButtonGroup>
         </div>
       </UCard>
@@ -115,4 +115,3 @@ watch(filters, refresh, { deep: true })
     </div>
   </div>
 </template>
-

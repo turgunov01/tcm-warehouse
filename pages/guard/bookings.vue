@@ -7,6 +7,8 @@ const { bookingStatusLabel } = useRuLabels()
 
 const rows = ref<any[]>([])
 const zoneName = ref('')
+const confirmOpen = ref(false)
+const pendingUpdate = ref<{ row: any; status: 'arrived' | 'left' | 'completed' } | null>(null)
 
 const todayStart = () => {
   const d = new Date()
@@ -49,6 +51,32 @@ const updateStatus = async (row: any, status: 'arrived' | 'left' | 'completed') 
   }
 }
 
+const openStatusConfirm = (row: any, status: 'arrived' | 'left' | 'completed') => {
+  pendingUpdate.value = { row, status }
+  confirmOpen.value = true
+}
+
+const statusActionLabel = (status: 'arrived' | 'left' | 'completed') => {
+  if (status === 'arrived') {
+    return 'Прибыл'
+  }
+  if (status === 'left') {
+    return 'Выехал'
+  }
+  return 'Завершено'
+}
+
+const confirmStatusUpdate = async () => {
+  if (!pendingUpdate.value) {
+    return
+  }
+
+  const payload = pendingUpdate.value
+  pendingUpdate.value = null
+  confirmOpen.value = false
+  await updateStatus(payload.row, payload.status)
+}
+
 onMounted(load)
 </script>
 
@@ -78,12 +106,27 @@ onMounted(load)
         <template #status-data="{ row }">{{ bookingStatusLabel(row.status) }}</template>
         <template #actions-data="{ row }">
           <div class="flex gap-1">
-            <UButton size="2xs" label="Прибыл" :disabled="row.status !== 'approved'" @click="updateStatus(row, 'arrived')" />
-            <UButton size="2xs" label="Выехал" :disabled="row.status !== 'arrived'" @click="updateStatus(row, 'left')" />
-            <UButton size="2xs" label="Завершено" :disabled="row.status !== 'left'" @click="updateStatus(row, 'completed')" />
+            <UButton size="2xs" label="Прибыл" :disabled="row.status !== 'approved'" @click="openStatusConfirm(row, 'arrived')" />
+            <UButton size="2xs" label="Выехал" :disabled="row.status !== 'arrived'" @click="openStatusConfirm(row, 'left')" />
+            <UButton size="2xs" label="Завершено" :disabled="row.status !== 'left'" @click="openStatusConfirm(row, 'completed')" />
           </div>
         </template>
       </UTable>
     </UCard>
+
+    <UModal v-model="confirmOpen">
+      <UCard>
+        <template #header>
+          <p class="font-semibold">Подтверждение действия</p>
+        </template>
+        <p class="text-sm text-slate-700" v-if="pendingUpdate">
+          Вы точно хотите установить статус «{{ statusActionLabel(pendingUpdate.status) }}» для этой заявки?
+        </p>
+        <div class="mt-4 flex justify-end gap-2">
+          <UButton label="Отмена" type="button" variant="ghost" @click="confirmOpen = false" />
+          <UButton label="Подтвердить" type="button" color="white" @click="confirmStatusUpdate" />
+        </div>
+      </UCard>
+    </UModal>
   </div>
 </template>

@@ -3,11 +3,22 @@
 export default defineNuxtConfig({
   ssr: true,
   devtools: { enabled: true },
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'ru'
+      },
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'theme-color', content: '#080b12' }
+      ]
+    }
+  },
   modules: ['@nuxt/ui', '@nuxtjs/tailwindcss', '@nuxtjs/supabase', '@nuxtjs/google-fonts'],
   css: ['~/assets/css/main.css'],
   colorMode: {
-    preference: 'light',
-    fallback: 'light'
+    preference: 'dark',
+    fallback: 'dark'
   },
   typescript: {
     strict: true,

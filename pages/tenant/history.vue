@@ -17,6 +17,8 @@ const docUrls = reactive({
   platePhoto: ''
 })
 
+const driverDetailsTitle = '\u0414\u0430\u043d\u043d\u044b\u0435 \u0432\u043e\u0434\u0438\u0442\u0435\u043b\u044f'
+
 const load = async () => {
   if (!user.value?.id) {
     rows.value = []
@@ -114,7 +116,7 @@ watch(
     <UModal v-model="open">
       <UCard>
         <template #header>
-          <p class="font-semibold">Данные водителя</p>
+          <p class="font-semibold">{{ driverDetailsTitle }}</p>
         </template>
         <div v-if="selected" class="space-y-3 text-sm">
           <p><strong>Имя:</strong> {{ selected.driver_name }}</p>
