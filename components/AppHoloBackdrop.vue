@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const root = ref<HTMLElement | null>(null)
-const { allowHolograms, allowComplexMotion, motionLevel } = useMotionProfile()
+const { allowBackdropFx, allowComplexMotion, motionLevel } = useMotionProfile()
 
 const target = { x: 0, y: 0 }
 const current = { x: 0, y: 0 }
@@ -60,7 +60,7 @@ const startMotionLayer = () => {
     return
   }
   stopMotionLayer()
-  if (!allowComplexMotion.value || !allowHolograms.value) {
+  if (!allowComplexMotion.value || !allowBackdropFx.value) {
     return
   }
   window.addEventListener('pointermove', handleMove, { passive: true })
@@ -71,9 +71,9 @@ const startMotionLayer = () => {
 }
 
 watch(
-  () => [allowComplexMotion.value, allowHolograms.value, motionLevel.value],
+  () => [allowComplexMotion.value, allowBackdropFx.value, motionLevel.value],
   () => {
-    if (allowComplexMotion.value && allowHolograms.value) {
+    if (allowComplexMotion.value && allowBackdropFx.value) {
       startMotionLayer()
       return
     }
@@ -92,7 +92,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div v-if="allowHolograms" ref="root" class="app-holo-backdrop" aria-hidden="true">
+  <div v-if="allowBackdropFx" ref="root" class="app-holo-backdrop" aria-hidden="true">
     <div class="app-holo-noise" />
     <div class="app-holo-aurora app-holo-aurora-a" />
     <div class="app-holo-aurora app-holo-aurora-b" />

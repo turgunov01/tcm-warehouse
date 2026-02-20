@@ -9,7 +9,7 @@ const props = defineProps<{
   labels: string[]
   values: number[]
 }>()
-const { motionLevel, durationScale } = useMotionProfile()
+const { motionLevel, durationScale, allowChartAnimation } = useMotionProfile()
 
 const chartData = computed(() => ({
   labels: props.labels,
@@ -40,10 +40,10 @@ const chartOptions = computed(() => ({
     }
   },
   animation:
-    motionLevel.value === 'minimal'
+    !allowChartAnimation.value || motionLevel.value === 'minimal'
       ? false
       : {
-          duration: Math.max(200, Math.round(650 * durationScale.value))
+          duration: Math.max(120, Math.round(650 * durationScale.value))
         }
 }))
 

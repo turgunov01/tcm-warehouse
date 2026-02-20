@@ -5,12 +5,26 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     head: {
+      title: 'TCM Warehouse',
       htmlAttrs: {
         lang: 'ru'
       },
       meta: [
         { charset: 'utf-8' },
-        { name: 'theme-color', content: '#080b12' }
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: 'TCM Warehouse booking and operations management platform.' },
+        { name: 'application-name', content: 'TCM Warehouse' },
+        { name: 'apple-mobile-web-app-title', content: 'TCM Warehouse' },
+        { property: 'og:title', content: 'TCM Warehouse' },
+        { property: 'og:description', content: 'Warehouse booking and operations management.' },
+        { property: 'og:type', content: 'website' },
+        { name: 'theme-color', content: '#f8fafc', media: '(prefers-color-scheme: light)' },
+        { name: 'theme-color', content: '#080b12', media: '(prefers-color-scheme: dark)' }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon-light.svg', media: '(prefers-color-scheme: light)' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon-dark.svg', media: '(prefers-color-scheme: dark)' },
+        { rel: 'shortcut icon', type: 'image/svg+xml', href: '/favicon-dark.svg' }
       ]
     }
   },

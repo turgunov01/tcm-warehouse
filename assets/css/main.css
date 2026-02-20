@@ -402,20 +402,25 @@ a:hover {
 
 .mobile-tabbar {
   position: fixed;
-  left: 0.75rem;
-  right: 0.75rem;
-  bottom: 0.75rem;
-  z-index: 60;
+  left: max(0.6rem, env(safe-area-inset-left));
+  right: max(0.6rem, env(safe-area-inset-right));
+  bottom: max(0.55rem, env(safe-area-inset-bottom));
+  z-index: 140;
   border: 1px solid var(--ui-border);
   border-radius: 1.25rem;
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   background: rgba(15, 20, 30, 0.78);
   box-shadow: 0 20px 45px -25px rgba(0, 0, 0, 0.95);
-  padding: 0.4rem;
+  padding: 0.4rem 0.4rem calc(0.4rem + env(safe-area-inset-bottom) * 0.22);
 }
 
 .mobile-tab-btn {
-  min-height: 2.75rem;
+  min-height: 2.9rem;
+}
+
+.mobile-nav-offset {
+  padding-bottom: calc(5.4rem + env(safe-area-inset-bottom));
 }
 
 .mobile-tab-dot {
@@ -427,6 +432,12 @@ a:hover {
   border-radius: 9999px;
   background: #f97316;
   box-shadow: 0 0 12px rgba(249, 115, 22, 0.95);
+}
+
+@media (min-width: 1024px) {
+  .mobile-nav-offset {
+    padding-bottom: 0;
+  }
 }
 
 /* Admin pages: keep general copy left-aligned without touching table cell alignment rules. */
@@ -1009,4 +1020,87 @@ html[data-motion-level='minimal'] .activity-row-kinetic {
   animation: none !important;
   transition: none !important;
   transform: none !important;
+}
+
+html[data-performance-tier='low'] .app-holo-backdrop,
+html[data-performance-tier='ultra'] .app-holo-backdrop,
+html[data-webview='1'] .app-holo-backdrop,
+html[data-performance-tier='low'] .login-hologram-grid,
+html[data-performance-tier='low'] .login-hologram-ring,
+html[data-performance-tier='low'] .login-hologram-scan,
+html[data-performance-tier='low'] .login-hologram-orbit,
+html[data-performance-tier='low'] .login-hologram-prism,
+html[data-performance-tier='low'] .login-hologram-particle-field,
+html[data-performance-tier='ultra'] .login-hologram-grid,
+html[data-performance-tier='ultra'] .login-hologram-ring,
+html[data-performance-tier='ultra'] .login-hologram-scan,
+html[data-performance-tier='ultra'] .login-hologram-orbit,
+html[data-performance-tier='ultra'] .login-hologram-prism,
+html[data-performance-tier='ultra'] .login-hologram-particle-field,
+html[data-webview='1'] .login-hologram-grid,
+html[data-webview='1'] .login-hologram-ring,
+html[data-webview='1'] .login-hologram-scan,
+html[data-webview='1'] .login-hologram-orbit,
+html[data-webview='1'] .login-hologram-prism,
+html[data-webview='1'] .login-hologram-particle-field {
+  display: none !important;
+}
+
+html[data-performance-tier='low'] .glass-panel,
+html[data-performance-tier='ultra'] .glass-panel,
+html[data-webview='1'] .glass-panel,
+html[data-glass-fx='0'] .glass-panel {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: rgba(17, 23, 34, 0.94) !important;
+  box-shadow: 0 14px 28px -22px rgba(0, 0, 0, 0.95) !important;
+}
+
+html[data-performance-tier='low'] .kinetic-card,
+html[data-performance-tier='low'] .kinetic-panel,
+html[data-performance-tier='low'] .kinetic-btn,
+html[data-performance-tier='low'] .table-kinetic table tbody tr,
+html[data-performance-tier='low'] .activity-row-kinetic,
+html[data-performance-tier='ultra'] .kinetic-card,
+html[data-performance-tier='ultra'] .kinetic-panel,
+html[data-performance-tier='ultra'] .kinetic-btn,
+html[data-performance-tier='ultra'] .table-kinetic table tbody tr,
+html[data-performance-tier='ultra'] .activity-row-kinetic,
+html[data-webview='1'] .kinetic-card,
+html[data-webview='1'] .kinetic-panel,
+html[data-webview='1'] .kinetic-btn,
+html[data-webview='1'] .table-kinetic table tbody tr,
+html[data-webview='1'] .activity-row-kinetic {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+html[data-performance-tier='low'] .kinetic-panel::after,
+html[data-performance-tier='low'] .kinetic-btn::after,
+html[data-performance-tier='ultra'] .kinetic-panel::after,
+html[data-performance-tier='ultra'] .kinetic-btn::after,
+html[data-webview='1'] .kinetic-panel::after,
+html[data-webview='1'] .kinetic-btn::after {
+  display: none !important;
+}
+
+html[data-performance-tier='ultra'] .app-page-enter-active,
+html[data-performance-tier='ultra'] .app-page-leave-active,
+html[data-webview='1'] .app-page-enter-active,
+html[data-webview='1'] .app-page-leave-active {
+  transition: none !important;
+}
+
+html[data-performance-tier='ultra'] .pulse-cursor-halo,
+html[data-performance-tier='ultra'] .pulse-cursor-dot,
+html[data-webview='1'] .pulse-cursor-halo,
+html[data-webview='1'] .pulse-cursor-dot {
+  display: none !important;
+}
+
+html[data-performance-tier='low'] body,
+html[data-performance-tier='ultra'] body,
+html[data-webview='1'] body {
+  background: linear-gradient(160deg, #080b12 0%, #05070b 100%) !important;
 }

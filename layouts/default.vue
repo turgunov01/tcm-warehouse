@@ -168,7 +168,7 @@ const logout = async () => {
         </UCard>
       </aside>
 
-      <main class="w-full min-w-0 pb-24 lg:pb-0">
+      <main class="mobile-nav-offset w-full min-w-0 pb-24 lg:pb-0">
         <div class="glass-panel mb-3 rounded-2xl border border-white/10 bg-[color:var(--ui-surface)]/75 p-3 backdrop-blur-lg lg:hidden">
           <div class="flex items-center justify-between gap-3">
             <div>
@@ -186,24 +186,28 @@ const logout = async () => {
       </main>
     </div>
 
-    <nav v-if="!isLogin && mobileLinks.length" class="mobile-tabbar lg:hidden">
-      <div class="grid gap-1" :style="{ gridTemplateColumns: `repeat(${mobileLinks.length}, minmax(0, 1fr))` }">
-        <UButton
-          v-for="link in mobileLinks"
-          :key="link.to"
-          :to="link.to"
-          class="mobile-tab-btn relative"
-          :icon="link.icon"
-          :variant="isLinkActive(link.to) ? 'solid' : 'ghost'"
-          color="white"
-          size="xs"
-          block
-        >
-          <span class="truncate text-[11px]">{{ link.label }}</span>
-          <span v-if="link.to.includes('/notifications') && unreadCount > 0" class="mobile-tab-dot" />
-        </UButton>
-      </div>
-    </nav>
+    <ClientOnly>
+      <Teleport to="body">
+        <nav v-if="!isLogin && mobileLinks.length" class="mobile-tabbar lg:hidden">
+          <div class="grid gap-1" :style="{ gridTemplateColumns: `repeat(${mobileLinks.length}, minmax(0, 1fr))` }">
+            <UButton
+              v-for="link in mobileLinks"
+              :key="link.to"
+              :to="link.to"
+              class="mobile-tab-btn relative"
+              :icon="link.icon"
+              :variant="isLinkActive(link.to) ? 'solid' : 'ghost'"
+              color="white"
+              size="xs"
+              block
+            >
+              <span class="truncate text-[11px]">{{ link.label }}</span>
+              <span v-if="link.to.includes('/notifications') && unreadCount > 0" class="mobile-tab-dot" />
+            </UButton>
+          </div>
+        </nav>
+      </Teleport>
+    </ClientOnly>
 
     <UModal v-model="notificationsModalOpen" :prevent-close="unreadCount > 0">
       <UCard>
